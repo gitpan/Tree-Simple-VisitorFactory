@@ -50,6 +50,7 @@ can_ok("Tree::Simple::Visitor::LoadDirectoryTree", 'new');
                         FromNestedArray.pm                        
                         FromNestedHash.pm                  
                         GetAllDescendents.pm
+                        LoadClassHierarchy.pm
                         LoadDirectoryTree.pm
                         PathToRoot.pm
                         PostOrderTraversal.pm 
@@ -76,7 +77,8 @@ can_ok("Tree::Simple::Visitor::LoadDirectoryTree", 'new');
             90_Tree_Simple_Visitor_FromNestedHash_test.t
             91_Tree_Simple_Visitor_FromNestedArray_test.t
             92_Tree_Simple_Visitor_ToNestedHash_test.t 
-            93_Tree_Simple_Visitor_ToNestedArray_test.t          
+            93_Tree_Simple_Visitor_ToNestedArray_test.t  
+            95_Tree_Simple_Visitor_LoadClassHierarchy_test.t        
         	pod.t
         	pod_coverage.t
     );
@@ -133,6 +135,7 @@ can_ok("Tree::Simple::Visitor::LoadDirectoryTree", 'new');
                         FromNestedArray.pm                        
                         FromNestedHash.pm                      
                         GetAllDescendents.pm
+                        LoadClassHierarchy.pm                        
                         LoadDirectoryTree.pm
                         PathToRoot.pm
                         PostOrderTraversal.pm    
@@ -155,7 +158,8 @@ can_ok("Tree::Simple::Visitor::LoadDirectoryTree", 'new');
             90_Tree_Simple_Visitor_FromNestedHash_test.t
             91_Tree_Simple_Visitor_FromNestedArray_test.t 
             92_Tree_Simple_Visitor_ToNestedHash_test.t 
-            93_Tree_Simple_Visitor_ToNestedArray_test.t           
+            93_Tree_Simple_Visitor_ToNestedArray_test.t  
+            95_Tree_Simple_Visitor_LoadClassHierarchy_test.t         
         	pod.t
         	pod_coverage.t
     );    
@@ -208,6 +212,7 @@ can_ok("Tree::Simple::Visitor::LoadDirectoryTree", 'new');
                         FromNestedArray.pm                        
                         FromNestedHash.pm                        
                         GetAllDescendents.pm
+                        LoadClassHierarchy.pm                        
                         LoadDirectoryTree.pm
                         PathToRoot.pm
                         PostOrderTraversal.pm   
@@ -231,7 +236,8 @@ can_ok("Tree::Simple::Visitor::LoadDirectoryTree", 'new');
             90_Tree_Simple_Visitor_FromNestedHash_test.t
             91_Tree_Simple_Visitor_FromNestedArray_test.t   
             92_Tree_Simple_Visitor_ToNestedHash_test.t 
-            93_Tree_Simple_Visitor_ToNestedArray_test.t                       
+            93_Tree_Simple_Visitor_ToNestedArray_test.t   
+            95_Tree_Simple_Visitor_LoadClassHierarchy_test.t                    
         	pod.t
         	pod_coverage.t  
         Changes

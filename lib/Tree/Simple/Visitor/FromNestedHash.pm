@@ -4,7 +4,7 @@ package Tree::Simple::Visitor::FromNestedHash;
 use strict;
 use warnings;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 use base qw(Tree::Simple::Visitor);
 
@@ -48,7 +48,7 @@ sub visit {
 
 sub _buildTree {
     my ($self, $tree, $hash, $node_filter, $include_trunk) = @_;
-    foreach my $key (keys %{$hash}) {
+    foreach my $key (sort keys %{$hash}) {
         my $node = $key;
         $node = $node_filter->($node) if $node_filter;
         my $new_tree;
@@ -152,6 +152,8 @@ It makes not sense to create a tree out of nothing, so it is assumed that this i
 The hash tree should have only one key in it's first level, if it has more than one, then it is not a single rooted tree.
 
 =back
+
+B<NOTE:> Hash keys are sorted ascii-betically before being added to the tree, this results in a somewhat more predictable hierarchy.
 
 =item B<visit ($tree)>
 

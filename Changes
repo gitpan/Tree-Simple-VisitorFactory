@@ -1,5 +1,14 @@
 Revision history for Perl extension Tree-Simple-VisitorFactory.
 
+0.03 Tues Oct 12 2004
+	- fixed documentation in Tree::Simple::Visitor::Sort
+    - added Tree::Simple::Visitor::LoadClassHierarchy
+        - added tests for this
+        - added docs for this
+    - changed behavior in Tree::Simple::FromNestedHash
+      so that it sorts the hash keys before they are put
+      into the tree
+
 0.02 Wed Sept 29 2004
     - changed all Visitors to use 'base' for
       inheritance, it just cuts down on the 

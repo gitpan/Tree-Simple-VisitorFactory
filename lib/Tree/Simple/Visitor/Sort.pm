@@ -4,7 +4,7 @@ package Tree::Simple::Visitor::Sort;
 use strict;
 use warnings;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 use base qw(Tree::Simple::Visitor);
 
@@ -97,14 +97,14 @@ Tree::Simple::Visitor::Sort - A Visitor for sorting a Tree::Simple object heirar
   # create a visitor object
   my $visitor = Tree::Simple::Visitor::Sort->new();
   
-  $tree->accept($visit);
+  $tree->accept($visitor);
   # the tree is now sorted ascii-betically
 
   # set the sort function to 
   # use a numeric comparison
   $visitor->setSortFunction($visitor->NUMERIC);
   
-  $tree->accept($visit);
+  $tree->accept($visitor);
   # the tree is now sorted numerically  
   
   # set a custom sort function
@@ -113,7 +113,7 @@ Tree::Simple::Visitor::Sort - A Visitor for sorting a Tree::Simple object heirar
         lc($left->getNodeValue()->{name}) cmp lc($right->getNodeValue()->{name});
   });
   
-  $tree->accept($visit);
+  $tree->accept($visitor);
   # the tree's node are now sorted appropriately   
 
 =head1 DESCRIPTION
