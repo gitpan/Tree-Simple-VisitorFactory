@@ -4,7 +4,9 @@ package Tree::Simple::Visitor::FromNestedHash;
 use strict;
 use warnings;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
+
+use Scalar::Util qw(blessed);
 
 use base qw(Tree::Simple::Visitor);
 
@@ -36,7 +38,7 @@ sub setHashTree {
 
 sub visit {
 	my ($self, $tree) = @_;
-	(defined($tree) && ref($tree) && UNIVERSAL::isa($tree, "Tree::Simple"))
+	(blessed($tree) && $tree->isa("Tree::Simple"))
 		|| die "Insufficient Arguments : You must supply a valid Tree::Simple object"; 
     $self->_buildTree(
                     $tree, 

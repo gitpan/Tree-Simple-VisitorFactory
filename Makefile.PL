@@ -6,6 +6,7 @@ WriteMakefile(
         'Test::More'      => 0.47,
         'Test::Exception' => 0.15,
         'Tree::Simple'    => 1.06,
-        'File::Spec'      => 0.60 
+        'File::Spec'      => 0.60,
+        'Scalar::Util'    => 1.10
     }
 );

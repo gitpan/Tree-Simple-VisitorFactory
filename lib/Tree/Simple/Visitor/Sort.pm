@@ -4,7 +4,9 @@ package Tree::Simple::Visitor::Sort;
 use strict;
 use warnings;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
+
+use Scalar::Util qw(blessed);
 
 use base qw(Tree::Simple::Visitor);
 
@@ -38,7 +40,7 @@ sub setSortFunction {
 
 sub visit {
     my ($self, $tree) = @_;
-    (defined($tree) && ref($tree) && UNIVERSAL::isa($tree, "Tree::Simple"))
+	(blessed($tree) && $tree->isa("Tree::Simple"))
         || die "Insufficient Arguments : You must supply a valid Tree::Simple object";
         
     # No childs, nothing to sort

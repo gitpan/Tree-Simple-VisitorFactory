@@ -4,9 +4,10 @@ package Tree::Simple::Visitor::CreateDirectoryTree;
 use strict;
 use warnings;
 
-use File::Spec;
+our $VERSION = '0.02';
 
-our $VERSION = '0.01';
+use File::Spec;
+use Scalar::Util qw(blessed);
 
 use base qw(Tree::Simple::Visitor);
 
@@ -35,7 +36,7 @@ sub _init {
 
 sub visit {
 	my ($self, $tree) = @_;
-	(defined($tree) && ref($tree) && UNIVERSAL::isa($tree, "Tree::Simple"))
+	(blessed($tree) && $tree->isa("Tree::Simple"))
 		|| die "Insufficient Arguments : You must supply a valid Tree::Simple object"; 
     # pass on to our recursive subroutine
     $self->_createDirectoryStructure($tree);

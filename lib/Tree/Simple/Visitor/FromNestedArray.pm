@@ -4,7 +4,9 @@ package Tree::Simple::Visitor::FromNestedArray;
 use strict;
 use warnings;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
+
+use Scalar::Util qw(blessed);
 
 use base qw(Tree::Simple::Visitor);
 
@@ -43,7 +45,7 @@ sub setArrayTree {
 
 sub visit {
 	my ($self, $tree) = @_;
-	(defined($tree) && ref($tree) && UNIVERSAL::isa($tree, "Tree::Simple"))
+	(blessed($tree) && $tree->isa("Tree::Simple"))
 		|| die "Insufficient Arguments : You must supply a valid Tree::Simple object"; 
 	$self->_buildTree(
                 $tree,

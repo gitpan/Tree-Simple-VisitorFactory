@@ -4,7 +4,9 @@ package Tree::Simple::Visitor::FindByNodeValue;
 use strict;
 use warnings;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
+
+use Scalar::Util qw(blessed);
 
 use base qw(Tree::Simple::Visitor);
 
@@ -32,14 +34,14 @@ sub searchForNodeValue {
 
 sub setTraversalMethod {
 	my ($self, $visitor) = @_;
-	(defined($visitor) && ref($visitor) && UNIVERSAL::isa($visitor, "Tree::Simple::Visitor"))
+	(blessed($visitor) && $visitor->isa("Tree::Simple::Visitor"))
 		|| die "Insufficient Arguments : You must supply a valid Tree::Simple::Visitor object";
     $self->{traversal_method} = $visitor;
 }
 
 sub visit {
 	my ($self, $tree) = @_;
-	(defined($tree) && ref($tree) && UNIVERSAL::isa($tree, "Tree::Simple"))
+	(blessed($tree) && $tree->isa("Tree::Simple"))
 		|| die "Insufficient Arguments : You must supply a valid Tree::Simple object";
 
     # reset our success flag
@@ -93,7 +95,7 @@ sub visit {
     if ($@) {
         # if we caught a Tree::Simple object
         # then we have found a match, and ...
-        if (ref($@) && UNIVERSAL::isa($@, 'Tree::Simple')) {
+        if (blessed($@) && $@->isa('Tree::Simple')) {
             # we assign it to our results
             $self->setResults($@);
             $self->{success} = 1;

@@ -4,7 +4,9 @@ package Tree::Simple::Visitor::GetAllDescendents;
 use strict;
 use warnings;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
+
+use Scalar::Util qw(blessed);
 
 use base qw(Tree::Simple::Visitor);
 
@@ -25,14 +27,14 @@ sub _init {
 
 sub setTraversalMethod {
 	my ($self, $visitor) = @_;
-	(defined($visitor) && ref($visitor) && UNIVERSAL::isa($visitor, "Tree::Simple::Visitor"))
+	(blessed($visitor) && $visitor->isa("Tree::Simple::Visitor"))
 		|| die "Insufficient Arguments : You must supply a valid Tree::Simple::Visitor object";
     $self->{traversal_method} = $visitor;
 }
 
 sub visit {
 	my ($self, $tree) = @_;
-	(defined($tree) && ref($tree) && UNIVERSAL::isa($tree, "Tree::Simple"))
+	(blessed($tree) && $tree->isa("Tree::Simple"))
 		|| die "Insufficient Arguments : You must supply a valid Tree::Simple object";
 	# create an closure for the 
     # collection function

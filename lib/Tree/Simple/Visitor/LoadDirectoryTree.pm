@@ -4,9 +4,10 @@ package Tree::Simple::Visitor::LoadDirectoryTree;
 use strict;
 use warnings;
 
-use File::Spec;
+our $VERSION = '0.02';
 
-our $VERSION = '0.01';
+use File::Spec;
+use Scalar::Util qw(blessed);
 
 use base qw(Tree::Simple::Visitor);
 
@@ -57,7 +58,7 @@ sub setSortStyle {
 
 sub visit {
 	my ($self, $tree) = @_;
-	(defined($tree) && ref($tree) && UNIVERSAL::isa($tree, "Tree::Simple"))
+	(blessed($tree) && $tree->isa("Tree::Simple"))
 		|| die "Insufficient Arguments : You must supply a valid Tree::Simple object"; 
     # it must be a leaf
     ($tree->isLeaf()) || die "Illegal Operation : The tree must be a leaf node to load a directory";
