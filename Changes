@@ -1,5 +1,31 @@
 Revision history for Perl extension Tree-Simple-VisitorFactory.
 
+0.02 Wed Sept 29 2004
+    - changed all Visitors to use 'base' for
+      inheritance, it just cuts down on the 
+      line noise.
+    - improved the documentation in 
+      Tree::Simple::VisitorFactory to include
+      a categorized list of available visitors
+    - added Tree::Simple::Visitor::LoadDirectoryTree Visitor
+        - added tests for this
+    - added Tree::Simple::Visitor::CreateDirectoryTree Visitor
+        - added tests for this
+    - added Tree::Simple::Visitor::FindByUID Visitor
+        - added tests for this 
+        - thanks to Vitor Mori for the idea for this Visitor       
+    - added Tree::Simple::Visitor::PreOrderTraversal Visitor
+        - added tests for this   
+    - added Tree::Simple::Visitor::Sort Visitor
+        - added tests for this 
+        - thanks to Vitor Mori for most of the code and 
+          the idea for this Visitor     
+    - added Tree::Simple::FromNestedArray, Tree::Simple::FromNestedHash
+      and their compliments Tree::Simple::ToNestedArray and
+      Tree::Simple::ToNestedHash
+        - added tests for these
+    - added the pod.t and pod_coverage.t tests
+
 0.01 Wed Jun 23 09:24:07 2004
     - module created
 

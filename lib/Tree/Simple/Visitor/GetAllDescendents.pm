@@ -4,11 +4,9 @@ package Tree::Simple::Visitor::GetAllDescendents;
 use strict;
 use warnings;
 
-use Tree::Simple::Visitor;
-
 our $VERSION = '0.01';
 
-our @ISA = qw(Tree::Simple::Visitor);
+use base qw(Tree::Simple::Visitor);
 
 sub new {
     my ($_class) = @_;
@@ -110,11 +108,11 @@ There are no arguments to the constructor the object will be in its default stat
 
 =item B<setTraversalMethod ($visitor)>
 
-By default we will use Tree::Simple's built in depth-first (pre-order) traverse method. If however, you desire the descendents to be returned in a different ordering, this can be accomplished using a different traversal method, you can supply a C<$visitor> object implementing that traversal type to this method (See  B<Tree::Simple::Visitor::BreadthFirstTraversal> and B<Tree::Simple::Visitor::PostOrderTraversal>).
+By default we will use Tree::Simple's built in depth-first (pre-order) traverse method. If however, you desire the descendents to be returned in a different ordering, this can be accomplished using a different traversal method, you can supply a C<$visitor> object implementing that traversal type to this method (See  B<Tree::Simple::Visitor::BreadthFirstTraversal>, B<Tree::Simple::Visitor::PreOrderTraversal> and B<Tree::Simple::Visitor::PostOrderTraversal>).
 
 =item B<setNodeFilter ($filter_function)>
 
-This method accepts a CODE reference as its C<$filter_function> argument. This code reference is used to filter the tree nodes as they are collected. This can be used to customize output, or to gather specific information from a more complex tree node. The filter function should accept a single argument, which is the current Tree::Simple object.
+This method accepts a CODE reference as its C<$filter_function> argument and throws an exception if it is not a code reference. This code reference is used to filter the tree nodes as they are collected. This can be used to customize output, or to gather specific information from a more complex tree node. The filter function should accept a single argument, which is the current Tree::Simple object.
 
 =item B<visit ($tree)>
 
@@ -122,7 +120,7 @@ This is the method that is used by Tree::Simple's C<accept> method. It can also 
 
 =item B<getAllDescendents>
 
-This method will give back and array of descendents in depth-first order (pre-order) or in the order specified by the C<setTraversalMethod>. If called in scalar context it will give an array reference, in list context it will return a regular array.
+This method will give back and array of descendents in depth-first order (pre-order) or in the order specified by the C<setTraversalMethod>. If called in scalar context it will give an array reference, in list context it will return a regular array. This method is the same as calling C<getResults>.
 
 =back
 

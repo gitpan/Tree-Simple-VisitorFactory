@@ -1,5 +1,5 @@
 
-package Tree::Simple::Visitor::PostOrderTraversal;
+package Tree::Simple::Visitor::PreOrderTraversal;
 
 use strict;
 use warnings;
@@ -8,49 +8,13 @@ our $VERSION = '0.01';
 
 use base qw(Tree::Simple::Visitor);
 
+# make sure we use the "new" interface
+# so we enforce it here
 sub new {
     my ($_class) = @_;
     my $class = ref($_class) || $_class;
-    my $visitor = {};
-    bless($visitor, $class);
-    $visitor->_init();
+    my $visitor = $class->SUPER::new();
     return $visitor;
-}
-
-sub visit {
-	my ($self, $tree) = @_;
-	(defined($tree) && ref($tree) && UNIVERSAL::isa($tree, "Tree::Simple"))
-		|| die "Insufficient Arguments : You must supply a valid Tree::Simple object";
-    # get our filter function
-    my $filter_function = $self->getNodeFilter();
-    # use an inner subroutine to accomplish
-    # this traversal using recursion
-    my $_postOrderTraversal = sub {
-        my ($current_tree, $traversal_function) = @_;
-        # get a temporary results container
-        my @results;
-        # process each child
-        foreach my $child ($current_tree->getAllChildren()) {
-            # recurse our inner subroutine by passing itself
-            # to itself, and then collect the results of this
-            # recursion
-            push @results => $traversal_function->($child, $traversal_function);
-        }
-        # if we are root and we are not including the trunk then 
-        # we can return our results now
-        return @results if $current_tree->isRoot() && !$self->includeTrunk();
-        # however, if we dont meet those conditions, then we 
-        # need to process the current tree and add it to our
-        # results
-        push @results => (($filter_function) ? 
-                                $filter_function->($current_tree) 
-                                : 
-                                $current_tree->getNodeValue()); 
-        # and then return the results
-        return @results;
-    };
-    # now store the results in our object
-    $self->setResults($_postOrderTraversal->($tree, $_postOrderTraversal));
 }
 
 1;
@@ -59,14 +23,14 @@ __END__
 
 =head1 NAME
 
-Tree::Simple::Visitor::PostOrderTraversal - A Visitor for post-order traversal a Tree::Simple hierarchy
+Tree::Simple::Visitor::PreOrderTraversal - A Visitor for pre-order traversal a Tree::Simple hierarchy
 
 =head1 SYNOPSIS
 
-  use Tree::Simple::Visitor::PostOrderTraversal;
+  use Tree::Simple::Visitor::PreOrderTraversal;
   
   # create an visitor
-  my $visitor = Tree::Simple::Visitor::PostOrderTraversal->new();
+  my $visitor = Tree::Simple::Visitor::PreOrderTraversal->new();
   
   # pass our visitor to the tree
   $tree->accept($visitor);
@@ -75,7 +39,7 @@ Tree::Simple::Visitor::PostOrderTraversal - A Visitor for post-order traversal a
   print join ", " => $visitor->getResults();
   
   # this will print this: 
-  #   1.1.1 1.1 1.2 1 2.1 2 3.1 3 
+  #   1 1.1 1.1.1 1.2 2 2.1 3 3.1 
   # assuming your tree is like this:
   #   1
   #     1.1
@@ -88,7 +52,7 @@ Tree::Simple::Visitor::PostOrderTraversal - A Visitor for post-order traversal a
 
 =head1 DESCRIPTION
 
-Post-order traversal is a variation of the depth-first traversal in which the sub-tree's are processed I<before> the parent. It is another alternative to Tree::Simple's C<traverse> method which implements a depth-first, pre-order traversal.
+Pre-order traversal is a depth-first traversal method in which the sub-tree's are processed I<after> the parent. It is essentially a wrapper around the base Tree::Simple::Visitor class, and is a seperate module here for completeness. (If you have a post-order, you should have a pre-order too). 
 
 =head1 METHODS
 

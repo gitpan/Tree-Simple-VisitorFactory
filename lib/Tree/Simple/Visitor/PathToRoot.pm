@@ -4,11 +4,9 @@ package Tree::Simple::Visitor::PathToRoot;
 use strict;
 use warnings;
 
-use Tree::Simple::Visitor;
-
 our $VERSION = '0.01';
 
-our @ISA = qw(Tree::Simple::Visitor);
+use base qw(Tree::Simple::Visitor);
 
 sub new {
     my ($_class) = @_;
@@ -17,11 +15,6 @@ sub new {
     bless($visitor, $class);
     $visitor->_init();
     return $visitor;
-}
-
-sub _init {
-    my ($self) = @_;
-    $self->SUPER::_init();
 }
 
 sub visit {
@@ -116,7 +109,7 @@ Based upon the value of C<$boolean>, this will tell the visitor to collect the t
 
 =item B<setNodeFilter ($filter_function)>
 
-This method accepts a CODE reference as its C<$filter_function> argument. This code reference is used to filter the tree nodes as they are collected. This can be used to customize output, or to gather specific information from a more complex tree node. The filter function should accept a single argument, which is the current Tree::Simple object.
+This method accepts a CODE reference as its C<$filter_function> argument and throws an exception if it is not a code reference. This code reference is used to filter the tree nodes as they are collected. This can be used to customize output, or to gather specific information from a more complex tree node. The filter function should accept a single argument, which is the current Tree::Simple object.
 
 =item B<visit ($tree)>
 

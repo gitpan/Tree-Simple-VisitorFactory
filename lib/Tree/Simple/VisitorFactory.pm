@@ -4,7 +4,7 @@ package Tree::Simple::VisitorFactory;
 use strict;
 use warnings;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 sub new { 
     my ($class) = @_;
@@ -65,27 +65,95 @@ This is an alias of C<get>.
 
 =back
 
-=head1 TO DO
+=head1 AVAILABLE VISITORS
 
-Obviously this is not an exhaustive collection of Visitor objects, many more can be written. These were a basic set which I find myself using quite often. A few other possible ideas are:
+This distibution provides a number of Visitor objects which can be loaded just by giving their name. Below is a description of the available Visitors and a sort description of what they do. I have attempted to classify the Visitors into groups which are related to their use.
+
+This factory will load any module contained inside the B<Tree::Simple::Visitor::*> namespace. Given a name, it will attempt to C<require> the module B<Tree::Simple::Visitor::E<lt>I<Name>E<gt>.pm>. This allows others to create Visitors which can be accessed with this factory, without needed to include them in this distrobution. 
+
+=head2 Search/Path Related Visitors 
 
 =over 4
 
-=item B<In-order traversal>
+=item B<PathToRoot>
 
-I scrapped this idea since in-order traversal only makes sense for binary trees and Tree::Simple is an n-ary tree by nature. However, since there is nothing stoping you from using a Tree::Simple object as a binary tree, then there may be a use for this. For now though, I am leaving it aside until I decide the best way to handle it.
+Given a Tree::Simple object, this Visitor will find the path back to the tree's root node. 
 
-=item B<Generalized search>
+=item B<FindByPath>
 
-I have been thinking about having a generalized tree search visitor, but I am still working out how the interface might work. Should I take parameters, and parse/process them? Should I ask the user to provide a predicate to test nodes with? Do I use the node filter mechanism with that? Etc, etc, etc. It would of course allow for different traversal types, but that then got me started thinking about more search oriented traversal algorithims like B<A*> and such. In the end however, this is not something I am very experienced, so I am leaving it aside for now.
+Given a path and Tree::Simple hierarchy, this Visitor will attempt to find the node specified by the path. 
 
-=item B<Syntax Tree specific>
+=item B<FindByUID>
 
-I was considering a Visitor which would take a syntax tree of an expression and be able to convert it to the different notations; prefix, postfix, infix. This however, would require a special purpose tree, which brings me to the same prediciment of the in-order traversal and how to determine that the tree given fits that tree type.
+Given a UID and Tree::Simple hierarchy, this Visitor will attempt to find the node with the same UID. 
 
-=item B<Tree balancing>
+=back
 
-This is a much more complex idea, and I am not even sure a Visitor is an appropriate way to implement this. 
+=head2 Traversal Visitors
+
+=over 4
+
+=item B<BreadthFirstTraversal>
+
+This implements a breadth-first traversal of a Tree::Simple hierarchy.
+
+=item B<PostOrderTraversal>
+
+Post-order traversal is a variation of the depth-first traversal in which the sub-tree's are processed I<before> the parent.
+
+=item B<PreOrderTraversal>
+
+Pre-order traversal is a depth-first traversal method in which the sub-tree's are processed I<after> the parent.
+
+=back
+
+=head2 FileSystem Visitors
+
+=over 4
+
+=item B<LoadDirectoryTree>
+
+This visitor can be used to load a directory tree into a Tree::Simple hierarchy.
+
+=item B<CreateDirectoryTree>
+
+This visitor can be used to create a set of directories and files from a Tree::Simple object hierarchy.
+
+=back
+
+=head2 Conversion Visitors
+
+=over 4
+
+=item B<FromNestedArray>
+
+Given a tree constructed from nested arrays, this Visitor will create the equivalent Tree::Simple heirarchy. 
+
+=item B<ToNestedArray>
+
+Given a Tree::Simple heirarchy, this Visitor will create the equivalent tree constructed from nested arrays. 
+
+=item B<FromNestedHash>
+
+Given a tree constructed from nested hashs, this Visitor will create the equivalent Tree::Simple heirarchy. 
+
+=item B<ToNestedHash>
+
+Given a Tree::Simple heirarchy, this Visitor will create the equivalent tree constructed from nested hashes. 
+
+=back
+
+=head2 Misc. Visitors
+
+=over 4
+
+=item B<GetAllDescendents>
+
+Given a Tree::Simple instance this Visitor will return all the descendents recursively on down the hierarchy.
+
+=item B<Sort>
+
+This implements a multi-level sort of a Tree::Simple heirarchy.
 
 =back
 
@@ -97,28 +165,31 @@ None that I am aware of. Of course, if you find a bug, let me know, and I will b
 
 I use B<Devel::Cover> to test the code coverage of my tests, below is the B<Devel::Cover> report on this module test suite.
 
- ------------------------------------------------------ ------ ------ ------ ------ ------ ------ ------
- File                                                     stmt branch   cond    sub    pod   time  total
- ------------------------------------------------------ ------ ------ ------ ------ ------ ------ ------
- /Tree/Simple/Visitor/BreadthFirstTraversal.pm           100.0   66.7   77.8  100.0  100.0    2.2   92.6
- /Tree/Simple/Visitor/FindByPath.pm                      100.0   62.5   77.8  100.0  100.0    1.8   91.7
- /Tree/Simple/Visitor/GetAllDescendents.pm               100.0  100.0   86.7  100.0  100.0    1.8   97.2
- /Tree/Simple/Visitor/PathToRoot.pm                      100.0   50.0   75.0  100.0  100.0    1.4   89.2
- /Tree/Simple/Visitor/PostOrderTraversal.pm              100.0   66.7   58.3  100.0  100.0    2.2   87.7
- /Tree/Simple/VisitorFactory.pm                          100.0  100.0    n/a  100.0  100.0    0.5  100.0
- /t/10_Tree_Simple_VisitorFactory_test.t                 100.0    n/a    n/a  100.0    n/a    6.1  100.0
- /t/20_Tree_Simple_Visitor_PathToRoot_test.t             100.0    n/a    n/a  100.0    n/a   19.1  100.0
- /t/30_Tree_Simple_Visitor_FindByPath_test.t             100.0    n/a    n/a  100.0    n/a   17.7  100.0
- /t/40_Tree_Simple_Visitor_GetAllDescendents_test.t      100.0    n/a    n/a  100.0    n/a   19.9  100.0
- /t/50_Tree_Simple_Visitor_BreadthOrderTraversal_test.t  100.0    n/a    n/a  100.0    n/a   13.8  100.0
- /t/60_Tree_Simple_Visitor_PostOrderTraversal_test.t     100.0    n/a    n/a  100.0    n/a   13.5  100.0
- ------------------------------------------------------ ------ ------ ------ ------ ------ ------ ------
- Total                                                   100.0   70.8   75.4  100.0  100.0  100.0   96.1
- ------------------------------------------------------ ------ ------ ------ ------ ------ ------ ------
+ -------------------------------------------- ------ ------ ------ ------ ------ ------ ------
+ File                                           stmt branch   cond    sub    pod   time  total
+ -------------------------------------------- ------ ------ ------ ------ ------ ------ ------
+ Tree/Simple/VisitorFactory.pm                 100.0  100.0    n/a  100.0  100.0    0.4  100.0
+ Tree/Simple/Visitor/BreadthFirstTraversal.pm  100.0   66.7   77.8  100.0  100.0    2.2   92.6
+ Tree/Simple/VisitorPostOrderTraversal.pm      100.0   66.7   58.3  100.0  100.0    1.7   87.0
+ Tree/Simple/VisitorPreOrderTraversal.pm       100.0    n/a   33.3  100.0  100.0    0.1   90.5
+ Tree/Simple/VisitorFindByPath.pm              100.0   87.5   77.8  100.0  100.0    1.1   95.8
+ Tree/Simple/VisitorFindByUID.pm               100.0   69.2   76.2  100.0  100.0   13.9   88.9
+ Tree/Simple/VisitorPathToRoot.pm              100.0   50.0   81.8  100.0  100.0    1.1   90.2
+ Tree/Simple/VisitorSort.pm                    100.0   66.7   83.3  100.0  100.0    2.8   94.2
+ Tree/Simple/VisitorGetAllDescendents.pm       100.0  100.0   86.7  100.0  100.0    2.3   97.2
+ Tree/Simple/VisitorLoadDirectoryTree.pm       100.0   75.0   80.0  100.0  100.0   56.2   90.2
+ Tree/Simple/VisitorCreateDirectoryTree.pm     100.0   71.4   72.2  100.0  100.0    2.7   90.5
+ Tree/Simple/VisitorFromNestedArray.pm         100.0   94.4   80.0  100.0  100.0   12.0   95.5
+ Tree/Simple/VisitorFromNestedHash.pm          100.0   91.7   83.3  100.0  100.0    1.2   95.9
+ Tree/Simple/VisitorToNestedArray.pm           100.0   40.0   77.8  100.0  100.0    1.1   86.0
+ Tree/Simple/VisitorToNestedHash.pm            100.0   40.0   77.8  100.0  100.0    1.2   86.0
+ -------------------------------------------- ------ ------ ------ ------ ------ ------ ------
+ Total                                         100.0   73.6   77.3  100.0  100.0  100.0   92.0
+ -------------------------------------------- ------ ------ ------ ------ ------ ------ ------
 
 =head1 SEE ALSO
 
-These Visitor classes are meant to work with B<Tree::Simple> hierarchies, you should refer to that module for more information.
+These Visitor classes are meant to work with L<Tree::Simple> hierarchies, you should refer to that module for more information.
 
 =head1 AUTHOR
 

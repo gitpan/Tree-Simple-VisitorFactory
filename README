@@ -1,4 +1,4 @@
-Tree::Simple::VisitorFactory version 0.01
+Tree::Simple::VisitorFactory version 0.02
 ===========================
 
 See the individual module documentation for more information
@@ -17,6 +17,7 @@ DEPENDENCIES
 This module requires these other modules and libraries:
 
 	Tree::Simple 1.06 or higher
+    File::Spec   0.60 or higher
 
 COPYRIGHT AND LICENCE
 
