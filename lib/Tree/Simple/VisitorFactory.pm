@@ -4,7 +4,7 @@ package Tree::Simple::VisitorFactory;
 use strict;
 use warnings;
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 sub new { 
     my ($class) = @_;
@@ -86,6 +86,10 @@ Given a path and Tree::Simple hierarchy, this Visitor will attempt to find the n
 =item B<FindByUID>
 
 Given a UID and Tree::Simple hierarchy, this Visitor will attempt to find the node with the same UID. 
+
+=item B<FindByNodeValue>
+
+Given a node value and Tree::Simple hierarchy, this Visitor will attempt to find the node with the same node value. 
 
 =back
 
@@ -175,28 +179,29 @@ None that I am aware of. Of course, if you find a bug, let me know, and I will b
 
 I use B<Devel::Cover> to test the code coverage of my tests, below is the B<Devel::Cover> report on this module test suite.
 
- --------------------------------------------- ------ ------ ------ ------ ------ ------ ------
+ -------------------------------------------- ------ ------ ------ ------ ------ ------ ------
  File                                           stmt branch   cond    sub    pod   time  total
- --------------------------------------------- ------ ------ ------ ------ ------ ------ ------
- Tree/Simple/VisitorFactory.pm                  100.0  100.0    n/a  100.0  100.0    0.8  100.0
- Tree/Simple/Visitor/BreadthFirstTraversal.pm   100.0   66.7   77.8  100.0  100.0    4.0   92.5
- Tree/Simple/Visitor/PostOrderTraversal.pm      100.0   66.7   58.3  100.0  100.0    2.9   86.8
- Tree/Simple/Visitor/PreOrderTraversal.pm       100.0    n/a   33.3  100.0  100.0    0.3   90.5
- Tree/Simple/Visitor/FindByPath.pm              100.0   87.5   77.8  100.0  100.0    2.5   95.8
- Tree/Simple/Visitor/FindByUID.pm               100.0   69.2   76.2  100.0  100.0    4.6   88.9
- Tree/Simple/Visitor/PathToRoot.pm              100.0   50.0   81.8  100.0  100.0    2.1   90.0
- Tree/Simple/Visitor/Sort.pm                    100.0   66.7   83.3  100.0  100.0    3.7   94.2
- Tree/Simple/Visitor/GetAllDescendents.pm       100.0  100.0   86.7  100.0  100.0    4.7   97.2
- Tree/Simple/Visitor/LoadDirectoryTree.pm       100.0   82.1   80.0  100.0  100.0   39.7   91.7
- Tree/Simple/Visitor/CreateDirectoryTree.pm     100.0   71.4   72.2  100.0  100.0    4.5   90.4
- Tree/Simple/Visitor/LoadClassHierarchy.pm      100.0   61.5   33.3  100.0  100.0    2.7   84.9
- Tree/Simple/Visitor/FromNestedArray.pm         100.0   94.4   80.0  100.0  100.0    2.9   95.4
- Tree/Simple/Visitor/FromNestedHash.pm          100.0   91.7   83.3  100.0  100.0    2.7   95.9
- Tree/Simple/Visitor/ToNestedArray.pm           100.0   40.0   77.8  100.0  100.0    5.4   85.7
- Tree/Simple/Visitor/ToNestedHash.pm            100.0   40.0   77.8  100.0  100.0   16.3   85.7
- --------------------------------------------- ------ ------ ------ ------ ------ ------ ------
- Total                                          100.0   73.0   74.6  100.0  100.0  100.0   91.4
- --------------------------------------------- ------ ------ ------ ------ ------ ------ ------
+ -------------------------------------------- ------ ------ ------ ------ ------ ------ ------
+ Tree/Simple/VisitorFactory.pm                 100.0  100.0    n/a  100.0  100.0    0.4  100.0
+ Tree/Simple/Visitor/FindByNodeValue.pm        100.0   69.2   76.2  100.0  100.0   12.7   88.9
+ Tree/Simple/Visitor/FindByPath.pm             100.0   87.5   77.8  100.0  100.0    2.1   95.8
+ Tree/Simple/Visitor/FindByUID.pm              100.0   69.2   76.2  100.0  100.0    2.4   88.9
+ Tree/Simple/Visitor/PathToRoot.pm             100.0   50.0   81.8  100.0  100.0    7.4   90.0
+ Tree/Simple/Visitor/GetAllDescendents.pm      100.0  100.0   86.7  100.0  100.0    4.7   97.2
+ Tree/Simple/Visitor/Sort.pm                   100.0   66.7   83.3  100.0  100.0    3.3   94.2
+ Tree/Simple/Visitor/LoadClassHierarchy.pm     100.0   61.5   33.3  100.0  100.0    1.5   84.9
+ Tree/Simple/Visitor/LoadDirectoryTree.pm      100.0   82.1   80.0  100.0  100.0   43.2   91.7
+ Tree/Simple/Visitor/CreateDirectoryTree.pm    100.0   71.4   72.2  100.0  100.0    4.7   90.4
+ Tree/Simple/Visitor/BreadthFirstTraversal.pm  100.0   66.7   77.8  100.0  100.0    3.0   92.5
+ Tree/Simple/Visitor/PostOrderTraversal.pm     100.0   66.7   58.3  100.0  100.0    1.7   86.8
+ Tree/Simple/Visitor/PreOrderTraversal.pm      100.0    n/a   33.3  100.0  100.0    0.1   90.5
+ Tree/Simple/Visitor/FromNestedArray.pm        100.0   94.4   80.0  100.0  100.0    7.5   95.4
+ Tree/Simple/Visitor/FromNestedHash.pm         100.0   91.7   83.3  100.0  100.0    2.5   95.9
+ Tree/Simple/Visitor/ToNestedArray.pm          100.0   40.0   77.8  100.0  100.0    1.3   85.7
+ Tree/Simple/Visitor/ToNestedHash.pm           100.0   40.0   77.8  100.0  100.0    1.4   85.7
+ -------------------------------------------- ------ ------ ------ ------ ------ ------ ------
+ Total                                         100.0   72.6   74.8  100.0  100.0  100.0   91.1
+ -------------------------------------------- ------ ------ ------ ------ ------ ------ ------
 
 =head1 SEE ALSO
 

@@ -5,6 +5,7 @@ README
 lib/Tree/Simple/VisitorFactory.pm
 lib/Tree/Simple/Visitor/PathToRoot.pm
 lib/Tree/Simple/Visitor/FindByUID.pm
+lib/Tree/Simple/Visitor/FindByNodeValue.pm
 lib/Tree/Simple/Visitor/FindByPath.pm
 lib/Tree/Simple/Visitor/GetAllDescendents.pm
 lib/Tree/Simple/Visitor/BreadthFirstTraversal.pm
@@ -21,6 +22,7 @@ lib/Tree/Simple/Visitor/LoadClassHierarchy.pm
 t/10_Tree_Simple_VisitorFactory_test.t
 t/20_Tree_Simple_Visitor_PathToRoot_test.t
 t/30_Tree_Simple_Visitor_FindByPath_test.t
+t/32_Tree_Simple_Visitor_FindByNodeValue_test.t
 t/35_Tree_Simple_Visitor_FindByUID_test.t
 t/40_Tree_Simple_Visitor_GetAllDescendents_test.t
 t/50_Tree_Simple_Visitor_BreadthFirstTraversal_test.t

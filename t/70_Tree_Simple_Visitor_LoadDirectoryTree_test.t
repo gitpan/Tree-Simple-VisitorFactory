@@ -47,6 +47,7 @@ can_ok("Tree::Simple::Visitor::LoadDirectoryTree", 'new');
                         CreateDirectoryTree.pm
                         FindByPath.pm
                         FindByUID.pm
+                        FindByNodeValue.pm
                         FromNestedArray.pm                        
                         FromNestedHash.pm                  
                         GetAllDescendents.pm
@@ -66,6 +67,7 @@ can_ok("Tree::Simple::Visitor::LoadDirectoryTree", 'new');
             10_Tree_Simple_VisitorFactory_test.t
         	20_Tree_Simple_Visitor_PathToRoot_test.t
         	30_Tree_Simple_Visitor_FindByPath_test.t
+            32_Tree_Simple_Visitor_FindByNodeValue_test.t
             35_Tree_Simple_Visitor_FindByUID_test.t
         	40_Tree_Simple_Visitor_GetAllDescendents_test.t
         	50_Tree_Simple_Visitor_BreadthFirstTraversal_test.t
@@ -87,10 +89,12 @@ can_ok("Tree::Simple::Visitor::LoadDirectoryTree", 'new');
     isa_ok($visitor_check, 'Tree::Simple::Visitor::GetAllDescendents');
     
     $dir_tree->accept($visitor_check);
-        
+    
+    # we have to sort these because different OSes
+    # will return the results in different orders.
     is_deeply(
-            [ $visitor_check->getResults() ],
-            \@normal,
+            [ sort $visitor_check->getResults() ],
+            [ sort @normal ],
             '... our tree is in the proper order'); 
 }
 
@@ -130,7 +134,8 @@ can_ok("Tree::Simple::Visitor::LoadDirectoryTree", 'new');
                     Visitor
                         BreadthFirstTraversal.pm
                         CreateDirectoryTree.pm
-                        FindByPath.pm
+                        FindByNodeValue.pm
+                        FindByPath.pm                        
                         FindByUID.pm
                         FromNestedArray.pm                        
                         FromNestedHash.pm                      
@@ -147,6 +152,7 @@ can_ok("Tree::Simple::Visitor::LoadDirectoryTree", 'new');
             10_Tree_Simple_VisitorFactory_test.t
         	20_Tree_Simple_Visitor_PathToRoot_test.t
         	30_Tree_Simple_Visitor_FindByPath_test.t
+            32_Tree_Simple_Visitor_FindByNodeValue_test.t
             35_Tree_Simple_Visitor_FindByUID_test.t
         	40_Tree_Simple_Visitor_GetAllDescendents_test.t
         	50_Tree_Simple_Visitor_BreadthFirstTraversal_test.t
@@ -207,6 +213,7 @@ can_ok("Tree::Simple::Visitor::LoadDirectoryTree", 'new');
                     Visitor
                         BreadthFirstTraversal.pm
                         CreateDirectoryTree.pm
+                        FindByNodeValue.pm                        
                         FindByPath.pm
                         FindByUID.pm
                         FromNestedArray.pm                        
@@ -225,6 +232,7 @@ can_ok("Tree::Simple::Visitor::LoadDirectoryTree", 'new');
             10_Tree_Simple_VisitorFactory_test.t
         	20_Tree_Simple_Visitor_PathToRoot_test.t
         	30_Tree_Simple_Visitor_FindByPath_test.t
+            32_Tree_Simple_Visitor_FindByNodeValue_test.t
             35_Tree_Simple_Visitor_FindByUID_test.t
         	40_Tree_Simple_Visitor_GetAllDescendents_test.t
         	50_Tree_Simple_Visitor_BreadthFirstTraversal_test.t
