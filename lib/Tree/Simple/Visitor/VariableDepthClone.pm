@@ -6,7 +6,7 @@ use warnings;
 
 use Scalar::Util 'blessed';
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 use base qw(Tree::Simple::Visitor);
 
@@ -73,7 +73,7 @@ sub _cloneTree {
         );
         $filter->($child, $cloned_child) if defined $filter;        
         $clone->addChild($cloned_child);
-        $self->_cloneTree($child, $cloned_child, $depth - 1) unless $child->isLeaf();
+        $self->_cloneTree($child, $cloned_child, $depth - 1, $filter) unless $child->isLeaf();
     }
 }
 
