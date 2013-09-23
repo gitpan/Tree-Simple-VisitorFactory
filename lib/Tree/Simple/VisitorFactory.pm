@@ -4,9 +4,9 @@ package Tree::Simple::VisitorFactory;
 use strict;
 use warnings;
 
-our $VERSION = '0.10';
+our $VERSION = '0.11';
 
-sub new { 
+sub new {
     my ($class) = @_;
     return bless \$class;
 }
@@ -33,19 +33,19 @@ Tree::Simple::VisitorFactory - A factory object for dispensing Visitor objects
 =head1 SYNOPSIS
 
   use Tree::Simple::VisitorFactory;
-  
+
   my $tf = Tree::Simple::VisitorFactory->new();
-  
+
   my $visitor = $tf->get("PathToRoot");
-  
+
   # or call it as a class method
   my $visitor = Tree::Simple::VisitorFactory->getVisitor("PathToRoot");
 
 =head1 DESCRIPTION
 
-This object is really just a factory for dispensing Tree::Simple::Visitor::* objects. It is not required to use this package in order to use all the Visitors, it is just a somewhat convienient way to avoid having to type thier long class names. 
+This object is really just a factory for dispensing Tree::Simple::Visitor::* objects. It is not required to use this package in order to use all the Visitors, it is just a somewhat convienient way to avoid having to type thier long class names.
 
-I considered making this a Singleton, but I did not because I thought that some people might not want that. I know that I am very picky about using Singletons, especially in multiprocess environments like mod_perl, so I implemented the smallest instance I knew how to, and made sure all other methods could be called as class methods too. 
+I considered making this a Singleton, but I did not because I thought that some people might not want that. I know that I am very picky about using Singletons, especially in multiprocess environments like mod_perl, so I implemented the smallest instance I knew how to, and made sure all other methods could be called as class methods too.
 
 =head1 METHODS
 
@@ -69,27 +69,27 @@ This is an alias of C<get>.
 
 This distibution provides a number of Visitor objects which can be loaded just by giving their name. Below is a description of the available Visitors and a sort description of what they do. I have attempted to classify the Visitors into groups which are related to their use.
 
-This factory will load any module contained inside the B<Tree::Simple::Visitor::*> namespace. Given a name, it will attempt to C<require> the module B<Tree::Simple::Visitor::E<lt>I<Name>E<gt>.pm>. This allows others to create Visitors which can be accessed with this factory, without needed to include them in this distrobution. 
+This factory will load any module contained inside the B<Tree::Simple::Visitor::*> namespace. Given a name, it will attempt to C<require> the module B<Tree::Simple::Visitor::E<lt>I<Name>E<gt>.pm>. This allows others to create Visitors which can be accessed with this factory, without needed to include them in this distrobution.
 
-=head2 Search/Path Related Visitors 
+=head2 Search/Path Related Visitors
 
 =over 4
 
 =item B<PathToRoot>
 
-Given a Tree::Simple object, this Visitor will find the path back to the tree's root node. 
+Given a Tree::Simple object, this Visitor will find the path back to the tree's root node.
 
 =item B<FindByPath>
 
-Given a path and Tree::Simple hierarchy, this Visitor will attempt to find the node specified by the path. 
+Given a path and Tree::Simple hierarchy, this Visitor will attempt to find the node specified by the path.
 
 =item B<FindByUID>
 
-Given a UID and Tree::Simple hierarchy, this Visitor will attempt to find the node with the same UID. 
+Given a UID and Tree::Simple hierarchy, this Visitor will attempt to find the node with the same UID.
 
 =item B<FindByNodeValue>
 
-Given a node value and Tree::Simple hierarchy, this Visitor will attempt to find the node with the same node value. 
+Given a node value and Tree::Simple hierarchy, this Visitor will attempt to find the node with the same node value.
 
 =back
 
@@ -131,19 +131,19 @@ This visitor can be used to create a set of directories and files from a Tree::S
 
 =item B<FromNestedArray>
 
-Given a tree constructed from nested arrays, this Visitor will create the equivalent Tree::Simple heirarchy. 
+Given a tree constructed from nested arrays, this Visitor will create the equivalent Tree::Simple heirarchy.
 
 =item B<ToNestedArray>
 
-Given a Tree::Simple heirarchy, this Visitor will create the equivalent tree constructed from nested arrays. 
+Given a Tree::Simple heirarchy, this Visitor will create the equivalent tree constructed from nested arrays.
 
 =item B<FromNestedHash>
 
-Given a tree constructed from nested hashs, this Visitor will create the equivalent Tree::Simple heirarchy. 
+Given a tree constructed from nested hashs, this Visitor will create the equivalent Tree::Simple heirarchy.
 
 =item B<ToNestedHash>
 
-Given a Tree::Simple heirarchy, this Visitor will create the equivalent tree constructed from nested hashes. 
+Given a Tree::Simple heirarchy, this Visitor will create the equivalent tree constructed from nested hashes.
 
 =back
 
@@ -177,7 +177,7 @@ A Visitor for cloning parts of Tree::Simple hierarchy
 
 =head1 BUGS
 
-None that I am aware of. Of course, if you find a bug, let me know, and I will be sure to fix it. 
+None that I am aware of. Of course, if you find a bug, let me know, and I will be sure to fix it.
 
 =head1 CODE COVERAGE
 
@@ -216,6 +216,8 @@ These Visitor classes are meant to work with L<Tree::Simple> hierarchies, you sh
 
 stevan little, E<lt>stevan@iinteractive.comE<gt>
 
+Ron Savage E<lt>ron@savage.net.auE<gt> has taken over maintenance as of V 0.11.
+
 =head1 COPYRIGHT AND LICENSE
 
 Copyright 2004, 2005 by Infinity Interactive, Inc.
@@ -223,7 +225,7 @@ Copyright 2004, 2005 by Infinity Interactive, Inc.
 L<http://www.iinteractive.com>
 
 This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself. 
+it under the same terms as Perl itself.
 
 =cut
 
