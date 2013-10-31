@@ -1,10 +1,9 @@
-
 package Tree::Simple::Visitor::FromNestedHash;
 
 use strict;
 use warnings;
 
-our $VERSION = '0.11';
+our $VERSION = '0.12';
 
 use Scalar::Util qw(blessed);
 
@@ -28,21 +27,21 @@ sub _init {
 sub setHashTree {
     my ($self, $hash_tree) = @_;
     (defined($hash_tree) && ref($hash_tree) eq 'HASH')
-        || die "Insufficient Arguments : You must supply a valid HASH reference"; 
+        || die "Insufficient Arguments : You must supply a valid HASH reference";
     # validate the tree ...
     # it must not be empty
     (scalar keys %{$hash_tree} == 1)
         || die "Insufficient Arguments : The hash tree provided must be a single rooted tree";
-    $self->{hash_tree} = $hash_tree;    
+    $self->{hash_tree} = $hash_tree;
 }
 
 sub visit {
 	my ($self, $tree) = @_;
 	(blessed($tree) && $tree->isa("Tree::Simple"))
-		|| die "Insufficient Arguments : You must supply a valid Tree::Simple object"; 
+		|| die "Insufficient Arguments : You must supply a valid Tree::Simple object";
     $self->_buildTree(
-                    $tree, 
-                    $self->{hash_tree}, 
+                    $tree,
+                    $self->{hash_tree},
                     $self->getNodeFilter(),
                     $self->includeTrunk()
                     );
@@ -62,9 +61,9 @@ sub _buildTree {
             $new_tree = Tree::Simple->new($node);
             $tree->addChild($new_tree);
         }
-        $self->_buildTree($new_tree, $hash->{$key}, $node_filter) 
+        $self->_buildTree($new_tree, $hash->{$key}, $node_filter)
             if ref($hash->{$key}) eq 'HASH';
-    }                
+    }
 }
 
 1;
@@ -92,9 +91,9 @@ Tree::Simple::Visitor::FromNestedHash - A Visitor for creating Tree::Simple obje
                         }
                 };
 
-  # set the array tree we 
+  # set the array tree we
   # are going to convert
-  $visitor->setHashTree($hash_tree);            
+  $visitor->setHashTree($hash_tree);
 
   $tree->accept($visitor);
 
@@ -103,15 +102,15 @@ Tree::Simple::Visitor::FromNestedHash - A Visitor for creating Tree::Simple obje
   #     ->addChildren(
   #         Tree::Simple->new("Child1")
   #             ->addChildren(
-  #                 Tree::Simple->new("GrandChild1"),                
+  #                 Tree::Simple->new("GrandChild1"),
   #                 Tree::Simple->new("GrandChild2")
   #             ),
   #         Tree::Simple->new("Child2"),
   #     );
 
-=head1 DESCRIPTION 
+=head1 DESCRIPTION
 
-Given a tree constructed from nested hashs, this Visitor will create the equivalent Tree::Simple heirarchy. 
+Given a tree constructed from nested hashes, this Visitor will create the equivalent Tree::Simple hierarchy.
 
 =head1 METHODS
 
@@ -127,7 +126,7 @@ This method accepts a CODE reference as its C<$filter_function> argument and thr
 
 =item B<setHashTree ($hash_tree)>
 
-This method is used to set the C<$hash_tree> that our Tree::Simple heirarchy will be constructed from. It must be in the following form:
+This method is used to set the C<$hash_tree> that our Tree::Simple hierarchy will be constructed from. It must be in the following form:
 
   {
     Root => {
@@ -139,9 +138,9 @@ This method is used to set the C<$hash_tree> that our Tree::Simple heirarchy wil
           }
   }
 
-Basically each key in the hash is considered a node, values are ignored unless it is a hash reference with at least one key in it, in which case it is interpreted as containing the children of the node created from the key. 
+Basically each key in the hash is considered a node, values are ignored unless it is a hash reference with at least one key in it, in which case it is interpreted as containing the children of the node created from the key.
 
-The tree is validated prior being accepted, if it fails validation an execption will be thrown. The rules are as follows;
+The tree is validated prior being accepted, if it fails validation an exception will be thrown. The rules are as follows;
 
 =over 4
 
@@ -165,11 +164,11 @@ This is the method that is used by Tree::Simple's C<accept> method. It can also 
 
 =head1 BUGS
 
-None that I am aware of. Of course, if you find a bug, let me know, and I will be sure to fix it. 
+None that I am aware of. Of course, if you find a bug, let me know, and I will be sure to fix it.
 
 =head1 CODE COVERAGE
 
-See the B<CODE COVERAGE> section in L<Tree::Simple::VisitorFactory> for more inforamtion.
+See the B<CODE COVERAGE> section in L<Tree::Simple::VisitorFactory> for more information.
 
 =head1 SEE ALSO
 
@@ -186,6 +185,6 @@ Copyright 2004, 2005 by Infinity Interactive, Inc.
 L<http://www.iinteractive.com>
 
 This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself. 
+it under the same terms as Perl itself.
 
 =cut

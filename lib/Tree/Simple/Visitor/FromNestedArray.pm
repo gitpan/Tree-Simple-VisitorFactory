@@ -1,10 +1,9 @@
-
 package Tree::Simple::Visitor::FromNestedArray;
 
 use strict;
 use warnings;
 
-our $VERSION = '0.11';
+our $VERSION = '0.12';
 
 use Scalar::Util qw(blessed);
 
@@ -28,7 +27,7 @@ sub _init {
 sub setArrayTree {
     my ($self, $array_tree) = @_;
     (defined($array_tree) && ref($array_tree) eq 'ARRAY')
-        || die "Insufficient Arguments : You must supply a valid ARRAY reference"; 
+        || die "Insufficient Arguments : You must supply a valid ARRAY reference";
     # validate the tree ...
     # it must not be empty
     (scalar @{$array_tree} != 0)
@@ -40,22 +39,22 @@ sub setArrayTree {
     (ref($array_tree->[1]) eq 'ARRAY')
         || die "Incorrect Object Type : The second value in the array tree must be an array reference"
             if defined($array_tree->[1]);
-    $self->{array_tree} = $array_tree;    
+    $self->{array_tree} = $array_tree;
 }
 
 sub visit {
 	my ($self, $tree) = @_;
 	(blessed($tree) && $tree->isa("Tree::Simple"))
-		|| die "Insufficient Arguments : You must supply a valid Tree::Simple object"; 
+		|| die "Insufficient Arguments : You must supply a valid Tree::Simple object";
 	$self->_buildTree(
                 $tree,
-                # our array tree 
-                $self->{array_tree}, 
+                # our array tree
+                $self->{array_tree},
                 # get a node filter if we have one
-                $self->getNodeFilter(), 
+                $self->getNodeFilter(),
                 # pass the value of includeTrunk too
                 $self->includeTrunk()
-                );                                    
+                );
 }
 
 sub _buildTree {
@@ -64,16 +63,16 @@ sub _buildTree {
     while ($i < scalar @{$array}) {
         my $node = $array->[$i];
         # check to make sure we have a well formed tree
-        (ref($node) ne 'ARRAY') 
+        (ref($node) ne 'ARRAY')
             || die "Incorrect Object Type : The node value should never be an array reference";
-        # filter the node if nessecary
+        # filter the node if necessary
         $node = $node_filter->($node) if defined($node_filter);
         # create the new tree
         my $new_tree;
         if ($include_trunk) {
             $tree->setNodeValue($node);
             $new_tree = $tree;
-        }	
+        }
         else {
             $new_tree = Tree::Simple->new($node);
             $tree->addChild($new_tree);
@@ -81,12 +80,12 @@ sub _buildTree {
         # increment the index value
         $i++;
         # NOTE:
-        # the value of include trunk is only 
-        # passed in the recursion, so that 
-        # the trunk/root can be populated, 
-        # we have no more need for it after 
+        # the value of include trunk is only
+        # passed in the recursion, so that
+        # the trunk/root can be populated,
+        # we have no more need for it after
         # that time.
-        $self->_buildTree($new_tree, $array->[$i++], $node_filter) 
+        $self->_buildTree($new_tree, $array->[$i++], $node_filter)
             if ref($array->[$i]) eq 'ARRAY';
     }
 }
@@ -106,8 +105,8 @@ Tree::Simple::Visitor::FromNestedArray - A Visitor for creating Tree::Simple obj
   my $visitor = Tree::Simple::Visitor::FromNestedArray->new();
 
   # given this nested array tree
-  my $array_tree = [ 
-                    'Root', [ 
+  my $array_tree = [
+                    'Root', [
                         'Child1', [
                                 'GrandChild1',
                                 'GrandChild2'
@@ -115,9 +114,9 @@ Tree::Simple::Visitor::FromNestedArray - A Visitor for creating Tree::Simple obj
                         'Child2'
                         ]
                     ];
-  # set the array tree we 
+  # set the array tree we
   # are going to convert
-  $visitor->setArrayTree($array_tree);            
+  $visitor->setArrayTree($array_tree);
 
   $tree->accept($visitor);
 
@@ -126,15 +125,15 @@ Tree::Simple::Visitor::FromNestedArray - A Visitor for creating Tree::Simple obj
   #     ->addChildren(
   #         Tree::Simple->new("Child1")
   #             ->addChildren(
-  #                 Tree::Simple->new("GrandChild1"),                
+  #                 Tree::Simple->new("GrandChild1"),
   #                 Tree::Simple->new("GrandChild2")
   #             ),
   #         Tree::Simple->new("Child2"),
   #     );
 
-=head1 DESCRIPTION 
+=head1 DESCRIPTION
 
-Given a tree constructed from nested arrays, this Visitor will create the equivalent Tree::Simple heirarchy. 
+Given a tree constructed from nested arrays, this Visitor will create the equivalent Tree::Simple hierarchy.
 
 =head1 METHODS
 
@@ -146,7 +145,7 @@ There are no arguments to the constructor the object will be in its default stat
 
 =item B<includTrunk ($boolean)>
 
-Setting the C<$boolean> value to true (C<1>) will cause the node value of the C<$tree> object passed into C<visit> to be set with the root value found in the C<$array_tree>. Setting it to false (C<0>), or not setting it, will result in the first value in the C<$array_tree> creating a new node level. 
+Setting the C<$boolean> value to true (C<1>) will cause the node value of the C<$tree> object passed into C<visit> to be set with the root value found in the C<$array_tree>. Setting it to false (C<0>), or not setting it, will result in the first value in the C<$array_tree> creating a new node level.
 
 =item B<setNodeFilter ($filter_function)>
 
@@ -154,10 +153,10 @@ This method accepts a CODE reference as its C<$filter_function> argument and thr
 
 =item B<setArrayTree ($array_tree)>
 
-This method is used to set the C<$array_tree> that our Tree::Simple heirarchy will be constructed from. It must be in the following form:
+This method is used to set the C<$array_tree> that our Tree::Simple hierarchy will be constructed from. It must be in the following form:
 
-  [ 
-    'Root', [ 
+  [
+    'Root', [
         'Child1', [
               'GrandChild1',
               'GrandChild2'
@@ -166,9 +165,9 @@ This method is used to set the C<$array_tree> that our Tree::Simple heirarchy wi
       ]
   ]
 
-Basically each element in the array is considered a node, unless it is an array reference, in which case it is interpreted as containing the children of the node created from the previous element in the array. 
+Basically each element in the array is considered a node, unless it is an array reference, in which case it is interpreted as containing the children of the node created from the previous element in the array.
 
-The tree is validated prior being accepted, if it fails validation an execption will be thrown. The rules are as follows;
+The tree is validated prior being accepted, if it fails validation an exception will be thrown. The rules are as follows;
 
 =over 4
 
@@ -178,11 +177,11 @@ It makes not sense to create a tree out of nothing, so it is assumed that this i
 
 =item All nodes of the array tree must not be array references.
 
-The root node is validated against this in this function, but all subsequent nodes are checked as the tree is built. Any nodes found to be array references are rejected and an exception is thrown. If you desire your node values to be array references, you can use the node filtering mechanism to acheive this as the node is filtered I<after> it is validated.
+The root node is validated against this in this function, but all subsequent nodes are checked as the tree is built. Any nodes found to be array references are rejected and an exception is thrown. If you desire your node values to be array references, you can use the node filtering mechanism to achieve this as the node is filtered I<after> it is validated.
 
 =item The array tree must be a single rooted tree.
 
-If there is a second element in the array tree, it is assumed to be the children of the root, and therefore must be in the form of an array reference. 
+If there is a second element in the array tree, it is assumed to be the children of the root, and therefore must be in the form of an array reference.
 
 =back
 
@@ -194,11 +193,11 @@ This is the method that is used by Tree::Simple's C<accept> method. It can also 
 
 =head1 BUGS
 
-None that I am aware of. Of course, if you find a bug, let me know, and I will be sure to fix it. 
+None that I am aware of. Of course, if you find a bug, let me know, and I will be sure to fix it.
 
 =head1 CODE COVERAGE
 
-See the B<CODE COVERAGE> section in L<Tree::Simple::VisitorFactory> for more inforamtion.
+See the B<CODE COVERAGE> section in L<Tree::Simple::VisitorFactory> for more information.
 
 =head1 SEE ALSO
 
@@ -215,6 +214,6 @@ Copyright 2004, 2005 by Infinity Interactive, Inc.
 L<http://www.iinteractive.com>
 
 This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself. 
+it under the same terms as Perl itself.
 
 =cut

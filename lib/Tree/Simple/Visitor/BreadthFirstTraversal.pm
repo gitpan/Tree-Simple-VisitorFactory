@@ -1,10 +1,9 @@
-
 package Tree::Simple::Visitor::BreadthFirstTraversal;
 
 use strict;
 use warnings;
 
-our $VERSION = '0.11';
+our $VERSION = '0.12';
 
 use Scalar::Util qw(blessed);
 
@@ -32,17 +31,17 @@ sub visit {
     my @results;
     # get our filter function
     my $filter_function = $self->getNodeFilter();
-    # now create a queue for 
+    # now create a queue for
     # processing depth first
     my @queue;
-    # if we are to include the trunk 
+    # if we are to include the trunk
     if ($self->includeTrunk()) {
         # then enqueue that
         @queue = ($tree);
     }
     # if we are not including the trunk
     else {
-        # then we enqueue all the 
+        # then we enqueue all the
         # trunks children instead
         @queue = ($tree->getAllChildren());
     }
@@ -52,14 +51,14 @@ sub visit {
         my $current_tree = shift @queue;
         # enqueue all the current tree's children
         push @queue => $current_tree->getAllChildren();
-        # now collect the results 
-        push @results => (($filter_function) ? 
+        # now collect the results
+        push @results => (($filter_function) ?
                                     $filter_function->($current_tree)
                                     :
                                     $current_tree->getNodeValue());
-    }        
+    }
     # store our results
-    $self->setResults(@results);    
+    $self->setResults(@results);
 }
 
 1;
@@ -73,18 +72,18 @@ Tree::Simple::Visitor::BreadthFirstTraversal - A Visitor for breadth-first trave
 =head1 SYNOPSIS
 
   use Tree::Simple::Visitor::BreadthFirstTraversal;
-  
+
   # create an visitor
   my $visitor = Tree::Simple::Visitor::BreadthFirstTraversal->new();
-  
+
   # pass our visitor to the tree
   $tree->accept($visitor);
-  
+
   # print our results
   print join ", " => $visitor->getResults();
-  
-  # this will print this: 
-  #   1, 2, 3, 1.1, 1.2, 2.1, 3.1, 1.1.1 
+
+  # this will print this:
+  #   1, 2, 3, 1.1, 1.2, 2.1, 3.1, 1.1.1
   # assuming your tree is like this:
   #   1
   #     1.1
@@ -109,7 +108,7 @@ There are no arguments to the constructor the object will be in its default stat
 
 =item B<includeTrunk ($boolean)>
 
-Based upon the value of C<$boolean>, this will tell the visitor to include the trunk of the tree in the traversal as well. 
+Based upon the value of C<$boolean>, this will tell the visitor to include the trunk of the tree in the traversal as well.
 
 =item B<setNodeFilter ($filter_function)>
 
@@ -127,11 +126,11 @@ This method returns the accumulated results of the application of the node filte
 
 =head1 BUGS
 
-None that I am aware of. Of course, if you find a bug, let me know, and I will be sure to fix it. 
+None that I am aware of. Of course, if you find a bug, let me know, and I will be sure to fix it.
 
 =head1 CODE COVERAGE
 
-See the B<CODE COVERAGE> section in L<Tree::Simple::VisitorFactory> for more inforamtion.
+See the B<CODE COVERAGE> section in L<Tree::Simple::VisitorFactory> for more information.
 
 =head1 SEE ALSO
 
@@ -148,7 +147,7 @@ Copyright 2004, 2005 by Infinity Interactive, Inc.
 L<http://www.iinteractive.com>
 
 This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself. 
+it under the same terms as Perl itself.
 
 =cut
 
